@@ -1,0 +1,43 @@
+<ion-menu menuId="first" contentId="content">
+  <ion-header color="principal">
+    <ion-toolbar color="principal">
+      <img src="assets/ICONOCIPAVI.svg" slot="start" style="width: 35px;height: 35px;"/>
+      <ion-title>CIPAVI +</ion-title>
+      <ion-button color="principal" (click)="funcioncerrar()" slot="end">  <ion-icon name="close">
+      </ion-icon>       
+       </ion-button>
+    </ion-toolbar>
+  </ion-header>
+    
+    <ion-content>
+          <div *ngFor="let p of pages">
+              <ion-menu-toggle *ngIf="p.url">
+                  <ion-item disabled="true" *ngIf="p.forw">
+                    <img [src]="p.icon" slot="start" style="width: 24px;height: 24px;"/>
+                    <ion-label class="ion-text-wrap">
+                      {{p.title}}
+                    </ion-label>
+                  </ion-item>
+              </ion-menu-toggle>
+              <ion-menu-toggle *ngIf="p.url">
+                <ion-item [routerLink]="p.url" routerDirection="root" routerLinkActive="active" *ngIf="!p.forw">
+                  <img [src]="p.icon" slot="start" style="width: 24px;height: 24px;"/>
+                  <ion-label class="ion-text-wrap">
+                    {{p.title}}
+                  </ion-label>
+                </ion-item>
+            </ion-menu-toggle><!--24x24-->
+              <ion-menu-toggle *ngIf="p.function">
+                <ion-item (click)="funcioneMenu(p.function)">
+                  <img [src]="p.icon" slot="start" style="width: 24px;height: 24px;"/>
+                  <ion-label class="ion-text-wrap">
+                    {{p.title}}
+                  </ion-label>
+                </ion-item>
+            </ion-menu-toggle>
+          </div>
+    </ion-content>
+
+</ion-menu>
+
+<ion-router-outlet id="content"></ion-router-outlet>

@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-buttons  slot="start" >
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-label class="ion-text-wrap">
+      Reportes Generados por el Usuario
+    </ion-label>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-item>
+      <ion-label>Selecciona el tipo de reporte</ion-label>
+      <ion-select value="1" okText="Aceptar" cancelText="Cancelar" (ionChange)="seleccionartiporeporte($event)">
+        <ion-select-option value="1">Reportes de operación de maquinaria y equipos</ion-select-option>
+        <ion-select-option value="2">Reportes de Control Transporte de Carga</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment (ionChange)="segmentChanged($event)"  [value]="tipoEnviados">
+    <ion-segment-button value="enviados">
+      <ion-label>Enviados</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="noenviados">
+      <ion-label>No Enviados</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" #fab>
+    <ion-fab-button color="transparent">
+      <ion-icon name="settings" color="principal"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="end">
+      <ion-fab-button *ngIf="tipoEnviados=='enviados'" (click)="MostrarReporte()"><ion-icon name="document-text-outline" ></ion-icon></ion-fab-button>
+      <ion-fab-button *ngIf="tipoEnviados=='noenviados'" (click)="enviarData()"><ion-icon name="send-outline"></ion-icon></ion-fab-button>
+      <ion-fab-button (click)="borrarReporte()"><ion-icon name="trash-outline" ></ion-icon></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  <ion-list >
+    
+    <ion-radio-group allow-empty-selection="true"  (ionChange)="radioGroupChange($event)" [value]="ReporteSeleccionado">
+      <ion-list-header class="ion-text-center">
+        <ion-label>Reportes {{tipoEnviados=='enviados'?'Enviados':'No Enviados'}}</ion-label>
+      </ion-list-header>
+  
+      <ion-item *ngFor="let reportesMostrar of reportesMostrar">
+        <ion-label>
+          <p *ngIf="reportesMostrar.data.enviado">Numero de Reporte: {{(reportesMostrar.data.dataEnviado.Principal.NORC?reportesMostrar.data.dataEnviado.Principal.NORC:'NO REGISTRO')}}</p>
+          <p class="ion-text-wrap">Empresa:{{reportesMostrar.NombreEmpresa}} </p>
+          <p class="ion-text-wrap">Proyecto:{{reportesMostrar.ProyectoNombre}}</p>
+          <p class="ion-text-wrap">Equipo:{{reportesMostrar.EquipoNombre}}</p>
+          <p class="ion-text-wrap">Responsable:{{reportesMostrar.Responsablenombre}}</p>
+        </ion-label>
+        <ion-radio slot="start" [value]="reportesMostrar.id"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+  
+</ion-content>
+

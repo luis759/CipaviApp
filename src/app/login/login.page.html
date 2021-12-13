@@ -1,0 +1,41 @@
+<ion-content class="fondo" color="transparent">
+  <ion-grid  class="fondo">
+    <ion-row >
+      <ion-col size="12" class="ion-text-center">
+        <ion-img src="assets/Icono.png"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col size="1">
+
+      </ion-col>
+      <ion-col size="10">
+        <ion-item-group>
+          <p  class="styletexto ion-text-center">
+            Iniciar Sesión
+          </p>
+        
+          <ion-item lines="none" class="styleinputlogin" color="transparent">
+            <ion-icon name="person" slot="start"color="light" ></ion-icon>
+            <ion-input type="text" placeholder="Cedula" color="light" [(ngModel)]="DataForm.nombreusuario.value" ></ion-input>
+          </ion-item>
+            <div *ngIf="DataForm.nombreusuario.error" [innerHTML]="DataForm.nombreusuario.Mensaje"> </div>
+            
+          <ion-item class="styleinputlogininve" color="transparent">
+            <ion-icon name="lock-closed" slot="start" color="light"></ion-icon>
+            <ion-input type="password"  placeholder="Palabra" color="light" [(ngModel)]="DataForm.clave.value" ></ion-input>
+          </ion-item>
+          <div *ngIf="DataForm.clave.error" [innerHTML]="DataForm.clave.Mensaje"> </div>
+          
+          <ion-button expand="block" shape="round" color="principal" class="ripple-parent ion-margin-top" (click)="validardatosIngreso()" >Ingresar
+            <ion-ripple-effect></ion-ripple-effect>
+          </ion-button>
+        </ion-item-group>
+      </ion-col>
+      <ion-col size="1">
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>

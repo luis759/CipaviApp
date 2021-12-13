@@ -1,0 +1,154 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-buttons  slot="start" >
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="ion-text-wrap">
+        Generar reporte
+       </div>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="start"  slot="fixed" *ngIf="mostrarinfos">
+    <ion-fab-button color="transparent" (click)="ValidarRegistro()" >
+      <ion-icon  color="principal" name="arrow-forward-circle">
+      </ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list>
+    <ion-list-header>
+      (Data)
+    </ion-list-header>
+    <ion-item >
+      <ion-label  color="dark">Empresa *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.empresa"
+        [items]="empresas"
+        itemValueField="IDEMP"
+        itemTextField="RAZON"
+        [canSearch]="true"
+        (onChange)="changeEmpresas($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>   
+    <ion-item>
+      <ion-label  position="" class="ion-text-wrap">Fecha *</ion-label>
+      <ion-datetime (ionChange)="fecha()" monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' min="1980" max="2030" cancelText="CANCELAR"  doneText="ACEPTAR" placeholder="Selecciona la Fecha" [(ngModel)]="DataForm.fecha" ></ion-datetime>
+    </ion-item>
+    <div *ngIf="mostrarinfos">
+    <ion-item >
+      <ion-label  color="dark">Proyecto *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.Proyecto"
+        [items]="Proyectos.datas1"
+        itemValueField="IDPROY"
+        itemTextField="PROYECTO"
+        [canSearch]="true"
+        (onChange)="changeProyecto($event)"
+        [hasInfiniteScroll]="true"
+        (onSearch)="seachProyectos($event)"
+        (onInfiniteScroll)="getMorePortsProyecto($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    <ion-item >
+      <ion-label  color="dark">Equipos *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.Equipo"
+        [items]="Equipos.datas1"
+        itemValueField="CODIGO"
+        itemTextField="NOMBREGLO"
+        [canSearch]="true"
+        (onChange)="changeEquipos($event)"
+        [hasInfiniteScroll]="true"
+        (onSearch)="seachEquipos($event)"
+        (onInfiniteScroll)="getMorePortsEquipos($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    <ion-item >
+      <ion-label  color="dark">Responsable *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.Responsable"
+        [items]="Responsables.datas1"
+        itemValueField="COD"
+        itemTextField="NOMBRES"
+        [canSearch]="true"
+        (onChange)="changeResponsable($event)"
+        [hasInfiniteScroll]="true"
+        (onSearch)="seachResponsale($event)"
+        (onInfiniteScroll)="getMorePortsResponsale($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+
+    <ion-item>
+      <ion-label  position="floating">Observaciones</ion-label>
+      <ion-input [(ngModel)]="DataForm.observaciones" type="text"></ion-input>
+     </ion-item>
+     <ion-item>
+      <ion-label  position="floating" class="ion-text-wrap">Indique la cantidad de Galones de combustible tanqueados.</ion-label>
+      <ion-input [(ngModel)]="DataForm.galones" type="number"></ion-input>
+   </ion-item>
+   <ion-item>
+    <ion-label  position="floating" class="ion-text-wrap">Indique la cantidad de Galones de aceite suministrados.</ion-label>
+    <ion-input [(ngModel)]="DataForm.litrosaceite" type="number"></ion-input>
+   </ion-item>
+     <ion-list-header>
+      (Datos de Odometros)
+    </ion-list-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item class="ion-text-center">
+            <ion-label position="floating" class="ion-text-wrap" style="font-size:12px;" >Inicio del odometro</ion-label>
+            <ion-input [(ngModel)]="DataForm.inicialodo" type="number"></ion-input>
+         </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item class="ion-text-center">
+            <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;" >Fin del odometro</ion-label>
+            <ion-input [(ngModel)]="DataForm.finalodo" type="number"></ion-input>
+         </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list-header>
+      (Horas Trabajadas)
+    </ion-list-header>
+   <ion-grid>
+  
+    <ion-row>
+      <ion-col size="5">
+        <ion-item class="ion-text-center">
+          <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora de inicio</ion-label>
+          <ion-datetime [min]="yearMin"  [max]="yearMax" display-format="HH:mm" picker-format="HH:mm " value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.startdate" ></ion-datetime>
+        </ion-item>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button color="primary" fill="clear" (click)="agregarTiempo()"><ion-icon name="add-circle-outline"></ion-icon></ion-button>
+      </ion-col>
+      <ion-col size="5">
+        <ion-item class="ion-text-center">
+          <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora de Fin</ion-label>
+          <ion-datetime [min]="yearMin"  [max]="yearMax" display-format="HH:mm" picker-format="HH:mm" value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.enddate" ></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <p *ngIf="tiemposs.length==0" class="ion-text-center" color="danger">No Hay Tiempos Tomados</p>
+  <ion-item *ngFor="let tiemposs of tiemposs,let i = index">
+    <ion-label>
+      <p>Hora de Inicio:{{tiemposs.HORADESDE | date:'h:mm a'}}</p>
+      <p>Hora de Fin:{{tiemposs.HORAHASTA | date:'h:mm a'}}</p>
+      <p>Tiempos:{{tiemposs.HORAS}}</p>
+    </ion-label>
+    <ion-button color="red" fill="clear" slot="end" (click)="borrarTiempos(i)"><ion-icon name="close-circle-outline"></ion-icon></ion-button>
+  </ion-item>
+</div>
+  </ion-list>
+</ion-content>

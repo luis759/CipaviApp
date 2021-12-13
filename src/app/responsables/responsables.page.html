@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-buttons  slot="start" >
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Nuevo Responsable
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" >
+  <ion-item >
+    <ion-label  color="dark">Empresa *:</ion-label>
+    <ionic-selectable 
+      [(ngModel)]="DataForm.empresa"
+      [items]="empresas"
+      itemValueField="IDEMP"
+      itemTextField="RAZON"
+      [canSearch]="true"
+      (onChange)="changeEmpresas($event)"
+      closeButtonText="Cerrar">
+    </ionic-selectable>
+  </ion-item>
+   <ion-item>
+    <ion-label  position="floating" class="ion-text-wrap">Cedula:</ion-label>
+    <ion-input [(ngModel)]="DataForm.CEDULA" type="number"></ion-input>
+   </ion-item>
+   <ion-item>
+    <ion-label  position="floating" class="ion-text-wrap">Nombres:</ion-label>
+    <ion-input [(ngModel)]="DataForm.NOMBRES" type="text"></ion-input>
+   </ion-item>
+</ion-content>
+<ion-footer >
+  <ion-toolbar color="transparent" > 
+    <ion-grid >
+      <ion-row >
+         <ion-col size="12">
+          <ion-button expand="full" tappable color="principal" (click)="validarData()">
+             Crear nuevo
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

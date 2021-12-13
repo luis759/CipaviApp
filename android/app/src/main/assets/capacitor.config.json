@@ -1,0 +1,6 @@
+{
+	"appId": "com.cipavi.com",
+	"appName": "CIPAVI+",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

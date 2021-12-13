@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-title>
+      <div class="ion-text-wrap">
+        Agregar un viaje
+       </div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModalAction()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-title size="large" class="ion-text-center">Nro:  {{DataForm.nroviaje}}</ion-title>
+  <ion-item>
+    <ion-label  position="floating">Carga:</ion-label>
+    <ion-input [(ngModel)]="DataForm.carga" type="text"></ion-input>
+   </ion-item>
+   <ion-item>
+    <ion-label  position="floating">Lugar de Cargue:</ion-label>
+    <ion-input [(ngModel)]="DataForm.lugardecargue" type="text"></ion-input>
+   </ion-item>
+   <ion-item class="ion-text-center">
+    <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora de cargue:</ion-label>
+    <ion-datetime display-format="HH:mm" picker-format="HH:mm " minuteValues="0,15,30,45"  value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.horasalida" ></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label  position="floating" class="ion-text-wrap">Indique kilometraje de Salida:</ion-label>
+    <ion-input [(ngModel)]="DataForm.kilometrajesalida" type="number"></ion-input>
+   </ion-item>
+   <ion-item>
+    <ion-label  position="floating">Lugar de Descargue:</ion-label>
+    <ion-input [(ngModel)]="DataForm.lugardescargue" type="text"></ion-input>
+   </ion-item>
+   <ion-item class="ion-text-center">
+    <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora de descargue:</ion-label>
+    <ion-datetime display-format="HH:mm" picker-format="HH:mm " minuteValues="0,15,30,45" value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.horalleguada" ></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label  position="floating" class="ion-text-wrap">Indique kilometraje de llegada:</ion-label>
+    <ion-input [(ngModel)]="DataForm.kilometrajelleguada" type="number"></ion-input>
+   </ion-item>
+   <ion-item>
+    <ion-label  position="floating" class="ion-text-wrap">Volumen Metricos:</ion-label>
+    <ion-input [(ngModel)]="DataForm.volumenmtr" type="number"></ion-input>
+   </ion-item>
+</ion-content>
+
+<ion-footer >
+  <ion-toolbar color="transparent" > 
+    <ion-grid >
+      <ion-row >
+         <ion-col size="12">
+          <ion-button expand="full" tappable color="principal" (click)="validarInfo()">
+            Agregar Nuevo
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
+

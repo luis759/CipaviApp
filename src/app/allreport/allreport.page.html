@@ -1,0 +1,86 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-buttons  slot="start" >
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-label class="ion-text-wrap">
+      Todos los Reportes
+    </ion-label>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button fill="clear" expand="full" (click)="checkDesde()" color="principal"> {{desde | date:'YYYY-MM-dd'}}</ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button fill="clear" expand="full" (click)="checkHasta()"  color="principal"> {{hasta | date:'YYYY-MM-dd'}}</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-item >
+      <ion-label  color="dark">Empresa *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="empresa"
+        [items]="empresas"
+        itemValueField="IDEMP"
+        itemTextField="RAZON"
+        [canSearch]="true"
+        (onChange)="changeEmpresas($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    <ion-item >
+      <ion-label  color="dark">Equipos *</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="Equipo"
+        [items]="Equiposs.datas1"
+        itemValueField="CODIGO"
+        itemTextField="NOMBREGLO"
+        [canSearch]="true"
+        (onChange)="changeEquipos($event)"
+        [hasInfiniteScroll]="true"
+        (onSearch)="seachEquipos($event)"
+        (onInfiniteScroll)="getMorePortsEquipos($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    <ion-item>
+      <ion-label>Selecciona el tipo de reporte</ion-label>
+      <ion-select value="1" okText="Aceptar" cancelText="Cancelar" (ionChange)="seleccionartiporeporte($event)">
+        <ion-select-option value="1">Reportes de operación de maquinaria y equipos</ion-select-option>
+        <ion-select-option value="2">Reportes de Control Transporte de Carga</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button expand="full" color="principal" (click)="searchProyect()"> Search</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed" >
+    <ion-fab-button color="principal">
+      <ion-icon name="document-text-outline" (click)="MostrarReporte()"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list >
+    <ion-radio-group allow-empty-selection="true"  (ionChange)="radioGroupChange($event)" [value]="ReporteSeleccionado">
+      <ion-list-header class="ion-text-center">
+        <ion-label>Reportes Generados</ion-label>
+      </ion-list-header>
+  
+      <ion-item *ngFor="let reportesMostrar of reportesMostrar">
+        <ion-label>
+          <p >Numero de Reporte: {{(reportesMostrar.NORC)}}</p>
+          <p class="ion-text-wrap">Empresa:{{reportesMostrar.NombreEmpresa}} </p>
+          <p class="ion-text-wrap">Proyecto:{{reportesMostrar.ProyectoNombre}}</p>
+          <p class="ion-text-wrap">Equipo:{{reportesMostrar.EquipoNombre}}</p>
+          <p class="ion-text-wrap">Responsable:{{reportesMostrar.Responsablenombre}}</p>
+          <p class="ion-text-wrap">Tipo reporte:{{reportesMostrar.tipo==1?'Reportes de operación de maquinaria y equipos':'Reportes de Control Transporte de Carga'}}</p>
+        </ion-label>
+        <ion-radio slot="start" [value]="reportesMostrar.id"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+  
+</ion-content>

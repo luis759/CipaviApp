@@ -1,0 +1,159 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-buttons  slot="start" >
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="ion-text-wrap">
+        Generar reporte transporte de carga
+       </div>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="start"  slot="fixed" *ngIf="mostrarinfos">
+    <ion-fab-button color="transparent" (click)="validarInfo()" >
+      <ion-icon  color="principal" name="arrow-forward-circle">
+      </ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list>
+    <ion-list-header>
+      (Data)
+    </ion-list-header>
+    <ion-item >
+      <ion-label  color="dark">Empresa *:</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.empresa"
+        [items]="empresas"
+        itemValueField="IDEMP"
+        itemTextField="RAZON"
+        [canSearch]="true"
+        (onChange)="changeEmpresas($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    <ion-item>
+      <ion-label   position="" class="ion-text-wrap">Fecha *:</ion-label>
+      <ion-datetime (ionChange)="fecha()" monthShortNames='Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic' [min]="yearMin" [max]="yearMax" cancelText="CANCELAR"  doneText="ACEPTAR" placeholder="Selecciona la Fecha" [(ngModel)]="DataForm.fecha" ></ion-datetime>
+    </ion-item>
+    <div *ngIf="mostrarinfos">
+      
+    <ion-item >
+      <ion-label  color="dark">Proyecto *:</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.Proyecto"
+        [items]="Proyectos.datas1"
+        itemValueField="IDPROY"
+        itemTextField="PROYECTO"
+        [canSearch]="true"
+        (onChange)="changeProyecto($event)"
+        [hasInfiniteScroll]="true"
+        (onSearch)="seachProyectos($event)"
+        (onInfiniteScroll)="getMorePortsProyecto($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+   
+    <ion-item >
+      <ion-label  color="dark">Equipos *:</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.Equipo"
+        [items]="Equipos.datas1"
+        itemValueField="CODIGO"
+        itemTextField="NOMBREGLO"
+        [canSearch]="true"
+        (onChange)="changeEquipos($event)"
+        [hasInfiniteScroll]="true"
+        (onSearch)="seachEquipos($event)"
+        (onInfiniteScroll)="getMorePortsEquipos($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+    <ion-item >
+      <ion-label  color="dark">Responsable *:</ion-label>
+      <ionic-selectable 
+        [(ngModel)]="DataForm.Responsable"
+        [items]="Responsables.datas1"
+        itemValueField="COD"
+        itemTextField="NOMBRES"
+        [canSearch]="true"
+        (onChange)="changeResponsable($event)"
+        [hasInfiniteScroll]="true"
+        (onSearch)="seachResponsale($event)"
+        (onInfiniteScroll)="getMorePortsResponsale($event)"
+        closeButtonText="Cerrar">
+      </ionic-selectable>
+    </ion-item>
+
+    <ion-item>
+      <ion-label  position="floating">Observaciones:</ion-label>
+      <ion-input [(ngModel)]="DataForm.observaciones" type="text"></ion-input>
+     </ion-item>
+     <ion-item>
+      <ion-label>Tanqueaste Gasolina?</ion-label>
+      <ion-toggle [(ngModel)]="DataForm.gasolinaTanqVal"></ion-toggle>
+    </ion-item>
+     <ion-item class="ion-text-center" *ngIf="DataForm.gasolinaTanqVal">
+      <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;">Hora de Tanqueo:</ion-label>
+      <ion-datetime [min]="yearMin"  [max]="yearMax" display-format="HH:mm" picker-format="HH:mm " value="1990-02-19T07:43Z" cancelText="CANCELAR"  doneText="ACEPTAR" [(ngModel)]="DataForm.hora" ></ion-datetime>
+    </ion-item>
+     <ion-item *ngIf="DataForm.gasolinaTanqVal">
+      <ion-label  position="floating" class="ion-text-wrap">Indique la cantidad de Galones de combustible tanqueados:</ion-label>
+      <ion-input [(ngModel)]="DataForm.galones" type="number"></ion-input>
+   </ion-item>
+   <ion-item  *ngIf="DataForm.gasolinaTanqVal">
+    <ion-label  position="floating" class="ion-text-wrap">Indique la cantidad de kilometraje al momento de tanquear:</ion-label>
+    <ion-input [(ngModel)]="DataForm.kilometraje" type="number"></ion-input>
+   </ion-item>
+     <ion-list-header>
+      (Datos de Nivel Combustible al Iniciar y Terminar el dia)
+    </ion-list-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item class="ion-text-center">
+            <ion-label position="floating" class="ion-text-wrap" style="font-size:12px;" >Nivel Inicial:</ion-label>
+            <ion-range min="1" max="8" step="1" mode="ios" ticks="true" snaps="true" color="principal" [(ngModel)]="DataForm.nivelinicial">
+              <ion-icon size="medium" slot="start" name="speedometer-outline" style="color:red;"></ion-icon>
+              <ion-icon size="medium" slot="end" name="speedometer-outline" style="color:green;"></ion-icon>
+            </ion-range>
+         </ion-item>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item class="ion-text-center">
+            <ion-label  position="floating" class="ion-text-wrap" style="font-size:12px;" >Nivel Final:</ion-label>
+            <ion-range min="1" max="8" step="1" mode="ios" ticks="true" snaps="true"  [(ngModel)]="DataForm.nivelfinal" color="principal" >
+              <ion-icon size="medium" slot="start" name="speedometer-outline" style="color:red;"></ion-icon>
+              <ion-icon size="medium" slot="end" name="speedometer-outline" style="color:green;"></ion-icon>
+            </ion-range>
+         </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list-header>
+      (Datos de los Viajes)
+    </ion-list-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="3">
+
+        </ion-col>
+        <ion-col size="6" class="ion-text-center">
+          <ion-button fill="clear" color="success" (click)="goToListViajes()">
+            <ion-icon size="large" slot="icon-only" name="car-sport-outline">
+            </ion-icon>
+            <ion-badge mode="ios" color="warning">{{DataForm.viajes.length}}</ion-badge>
+          </ion-button>
+        </ion-col>
+        <ion-col size="3">
+          
+        </ion-col>        
+      </ion-row>
+    </ion-grid>
+    
+  </div>
+  </ion-list>
+</ion-content>

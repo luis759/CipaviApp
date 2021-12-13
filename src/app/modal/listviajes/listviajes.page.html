@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="principal">
+    <ion-title>
+      <div class="ion-text-wrap">
+        Lista de viajes
+       </div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModalAction()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let items of ListaDeViajes">
+      <ion-label>
+        <p>Nro Viajes: {{items.NOVIAJE}}</p>
+        <p>Carga: {{items.CARGA}}</p>
+        <p>Lugar de Cargue: {{items.LUGARCARGUE}}</p>
+        <p>Lugar de Descargue: {{items.LUGARDESCARGUE}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer >
+  <ion-toolbar color="transparent" > 
+    <ion-grid >
+      <ion-row >
+         <ion-col size="12">
+          <ion-button expand="full" tappable color="principal" (click)="AgregarNuevo()">
+            Nuevo viaje
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
+
