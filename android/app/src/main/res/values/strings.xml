@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">CIPAVI+</string>
-    <string name="title_activity_main">CIPAVI+</string>
-    <string name="package_name">com.cipavi.org</string>
-    <string name="custom_url_scheme">com.cipavi.org</string>
+    <string name="app_name">Biso</string>
+    <string name="title_activity_main">Biso</string>
+    <string name="package_name">com.biso.com</string>
+    <string name="custom_url_scheme">com.biso.com</string>
 </resources>
