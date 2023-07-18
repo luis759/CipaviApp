@@ -98,9 +98,6 @@ export class ReportlistPage implements OnInit {
       id:0,
       data:{}
     }
-    console.log(Extraccion)
-    
-    console.log(this.tipodereporte)
     for(var i=0;i<Extraccion.length;i++){
       let valormostrar={
         id:0,
@@ -144,7 +141,7 @@ for(var i=0;i<arrays.length;i++){
     }
   }
   for(var l=0;l<this.reponsables.length;l++){
-    if((this.reponsables[l]['COD']==arrays[i]['data']['dataEnviada']['RESPONSABLE']) && (this.reponsables[k]['IDEMP']==arrays[i]['data']['dataEnviada']['IDEMP']) ){
+    if((this.reponsables[l]['COD']==arrays[i]['data']['dataEnviada']['RESPONSABLE']) && (this.reponsables[l]['IDEMP']==arrays[i]['data']['dataEnviada']['IDEMP']) ){
       arrays[i]['Responsablenombre']=this.reponsables[l]['NOMBRES']
     }
   }
